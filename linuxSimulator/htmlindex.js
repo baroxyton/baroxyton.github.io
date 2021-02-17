@@ -62,7 +62,7 @@ onkeydown = function(e) {
     }
     e.preventDefault()
     if (!triedFullscreen) {
-        // document.documentElement.requestFullscreen();
+         document.documentElement.requestFullscreen();
         triedFullscreen = true;
     }
     if (!runningCommand && e.key == "ArrowDown") {
