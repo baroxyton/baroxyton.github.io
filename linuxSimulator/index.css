@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    background-color: #111;
+}
+
+@keyframes animateCaret {
+    0% {
+        color: blue;
+    }
+    100% {
+        color: red;
+    }
+}
+
+*:fullscreen {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently*/
+    cursor: none;
+}
+
+* {
+    font-family: 'Ubuntu Mono', monospace;
+    color: #fdfdfd;
+}
+
+#output {
+    width: 100%;
+    background-color: #111;
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-break: break-all;
+    word-wrap: break;
+    max-height: calc(100% - 25px);
+}
+
+.caret {
+    width: 5px;
+    height: 15px;
+    background-color: white;
+    animation-name: animateCaret;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    margin-top: 2px;
+}
+
+@keyframes animateCaret {
+    0% {
+        opacity: 1;
+    }
+    49% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
