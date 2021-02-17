@@ -64,4 +64,4 @@ function IndexedObject(name, startValue) {
 		}
 	});
 }
-export {indexedObject}
+export { indexedObject }
