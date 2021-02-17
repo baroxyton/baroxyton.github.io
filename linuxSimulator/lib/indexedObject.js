@@ -1,6 +1,6 @@
 //indexedObject database library written by me
 //license: https://unlicense.org/
-let dosave = false;
+let dosave = true;
 
 function IndexedObject(name, startValue) {
     let db, store, objectStore;
