@@ -1,5 +1,5 @@
 function IndexedObject(name, startValue) {
-	let db, store;
+	let db, store,objectStore;
 	let rq = window.indexedDB.open(name, 1);
 	this.reset = function() {
 		indexedDB.deleteDatabase(name);
