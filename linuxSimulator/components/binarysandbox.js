@@ -158,7 +158,7 @@ api.io.stdout.output.ondone = function() {
             return null
         })
     }
-    let ban = ["Caches", "localStorage", "indexed", "location", "navigator", "onerror", "performance", "webkitIndexedDB", "importScripts"]
+    let ban = ["indexedDB","Caches", "localStorage", "indexed", "location", "navigator", "onerror", "performance", "webkitIndexedDB", "importScripts"]
     ban.forEach(function(obj) {
         hide(obj)
     })
