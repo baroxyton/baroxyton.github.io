@@ -1,0 +1,44 @@
+body {
+    font-family: monospace !important;
+    overflow-y: scroll;
+    text-align: start !important;
+    font-weight: 550;
+    user-select: text !important;
+    font-size: 1.2em !important;
+}
+
+::selection {
+    background-color: var(--Colors_View_ForegroundNormal) !important;
+    color: var(--Colors_View_BackgroundNormal);
+}
+
+.inputwrap {
+    display: flex;
+}
+
+#input {
+    width: 100%;
+    margin-left: 9px;
+}
+
+#user {
+    white-space: nowrap;
+}
+
+.caret {
+    background-color: var(--Colors_View_ForegroundNormal);
+    color: var(--Colors_View_BackgroundNormal);
+}
+
+#content {
+    user-select: text !important;
+}
+.clickCapturer{
+    position:fixed;
+    height:100%;
+    width:100%;
+    background-color:transparent;
+    top:0;
+    left:0;
+    z-index:0;
+}

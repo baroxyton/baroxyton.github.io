@@ -1,0 +1,306 @@
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overscroll-behavior-y: contain;
+    overflow: hidden
+}
+@keyframes load{
+    0% {
+        box-shadow: inset 10px 0 0 0 rgb(61,174,233);
+    }
+    60%{
+        box-shadow: inset 30vw 0 0 0 rgb(61,174,233);
+    }
+    100% {
+        box-shadow: inset 40vw 0 0 0 rgb(61,174,233);
+    }
+}
+body::before {
+    font-family: Arial, Helvetica, sans-serif !important;
+    content: "Loading...";
+    background-color: rgb(49, 54, 59);
+    color: rgb(252, 252, 252);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    font-size: calc(10vh + 10vw);
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+body::after {
+    content: "";
+    background-color: rgb(73, 73, 73);
+    position: absolute;
+    width: 40vw;
+    height: 5px;
+    top: 80%;
+    left: 30%;
+    z-index: -1;
+    animation: load ease-in-out 10s forwards;
+}
+
+#desktop {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background-size: cover;
+    background-position: center
+}
+
+#apps {
+    width: 100%
+}
+
+.app {
+    padding: 10px 15px;
+    position: fixed;
+    border-radius: 3px;
+    user-select: none
+}
+
+.appicon {
+    height: 85%;
+    width: 100%;
+    background-size: 100% 100%;
+    filter: drop-shadow(1px 1px 0.5px rgba(0, 0, 0, 0.5))
+}
+
+.appname {
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000, 1px 1px 2px #000, 1px 1px 2px #000;
+    height: 8.333%;
+    width: 100%
+}
+
+.panel {
+    user-select: none;
+    position: fixed;
+    top: calc(100vh - 45px);
+    box-shadow: 1px -1px 10px #000;
+    background-color: rgba(var(--Colors_View_BackgroundNormal_raw), 0.9);
+    color: var(--Colors_View_ForegroundNormal)
+}
+
+.menu {
+    position: fixed;
+    min-width: 15vw;
+    user-select: none;
+    background-color: var(--Colors_Window_BackgroundNormal);
+    box-shadow: inset 1px 1px 1px rgba(var(--Colors_Window_ForegroundInactive_raw), 0.5), inset -1px -1px 1px rgba(var(--Colors_Window_ForegroundInactive_raw), 0.5);
+    color: var(--Colors_View_ForegroundNormal);
+    border-radius: 3px;
+    font-size: 0.8em
+}
+
+.menuItem {
+    white-space: nowrap;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px;
+    display: flex
+}
+
+.menuItem.disabled {
+    filter: brightness(0.5);
+    pointer-events: none
+}
+
+.menuText {
+    margin-left: 5px
+}
+
+.menuIcon {
+    background-size: auto 100%;
+    margin-left: 5px;
+    filter: drop-shadow(1px 1px 1px rgba(42, 46, 50, 1))
+}
+
+.desktopdrag {
+    position: absolute;
+    border-radius: 5px;
+    background-color: rgba(var(--Colors_Selection_BackgroundNormal_raw), 0.2);
+    box-shadow: inset 0px 0px 0px 1px rgba(var(--Colors_Selection_ForegroundNormal_raw), 0.4)
+}
+
+.widget {
+    height: 45px;
+    width: 45px;
+    background-size: cover;
+    float: left;
+    vertical-align: middle;
+    text-align: center;
+    filter: drop-shadow(1px 1px 1px rgba(42, 46, 50, 1))
+}
+
+.kwin {
+    position: absolute;
+    border-radius: 3px;
+    visibility: hidden;
+    background-color: var(--Colors_Tooltip_BackgroundNormal);
+    filter: contrast(0.95)
+}
+
+.knavbar {
+    position: relative;
+    top: 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    left: 0;
+    height: 25px;
+    width: 100%
+}
+
+.kwinActions {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.kwinActions>div {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin: 2.5px 2px 2px;
+    cursor: initial!important
+}
+
+.kwintitle {
+    overflow: hidden;
+    text-align: center;
+    user-select: none;
+    color: var(--Colors_Window_ForegroundNormal)
+}
+
+.kwinIcon {
+    float: left;
+    height: 25px;
+    width: 25px;
+    background-size: 100% 100%
+}
+
+.programIframe {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border: 0
+}
+
+.iframeHolder {
+    height: calc(100% - 25px);
+    width: 100%;
+    border-radius: 3px;
+    display: flex;
+    overflow: hidden
+}
+
+.windowcover {
+    position: absolute;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    display: none
+}
+
+.toolbar {
+    height: 30px;
+    width: 100%;
+    user-select: none;
+    display: none;
+    border-bottom: 1px solid
+}
+
+.toolbarItem {
+    padding: 3px;
+    border-radius: 2px;
+    display: inline;
+    float: left;
+    margin-left: 2px;
+    color: var(--Colors_Tooltip_ForegroundNormal)
+}
+
+@keyframes widgetAnimation {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0
+    }
+    100% {
+        transform: translate(0, -100%);
+        opacity: 1
+    }
+}
+
+.widgetWindow {
+    border: 0;
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    visibility: hidden
+}
+
+.widgetWindow.loaded {
+    animation: widgetAnimation 0.1s forwards
+}
+
+.app:hover {
+    background-color: rgba(var(--Colors_Selection_BackgroundNormal_raw), 0.4);
+    box-shadow: inset 0px 0px 0px 1px rgba(var(--Colors_Selection_BackgroundNormal_raw), 0.8)
+}
+
+.selectedapp {
+    background-color: rgba(var(--Colors_Selection_BackgroundNormal_raw), 0.8)!important;
+    box-shadow: none!important
+}
+
+.menuItem:hover {
+    background-color: rgba(var(--Colors_Selection_BackgroundNormal_raw), 0.4);
+    box-shadow: inset 0px 0px 0px 1px rgba(var(--Colors_Selection_BackgroundNormal_raw), 0.8)
+}
+
+.menuItem.menuSeparator {
+    box-shadow: 0px 1px 1px rgba(var(--Colors_Window_ForegroundInactive_raw), 0.5);
+}
+
+.kwin.focused {
+    filter: none!important;
+    box-shadow: 1px 1px 30px rgba(0, 0, 0, 0.5), -3px -3px 10px rgba(0, 0, 0, 0.3)
+}
+
+.knavbar, .toolbar {
+    background-color: var(--Colors_Tooltip_BackgroundNormal)
+}
+
+.toolbarItem:hover {
+    background-color: rgba(var(--Colors_Tooltip_ForegroundNormal_raw), 0.1)
+}
+
+.appLauncherIcon {
+    height: 40px;
+    width: 40px;
+    background-size: 100% 100%;
+    background-position: 0 0;
+    margin-left: 2px;
+    filter: brightness(1);
+    transition: filter 0.2s
+}
+
+.appWidget {
+    display: flex;
+    align-items: center
+}
+
+.appLauncherIcon:hover {
+    filter: brightness(1.2)
+}

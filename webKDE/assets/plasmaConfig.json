@@ -1,0 +1,49 @@
+{
+    "desktop": {
+        "backgroundimage": "/home/demo/Pictures/wallpaper.png",
+        "theme": "breeze-dark",
+        "icons": {
+            "credits.txt": {
+                "position": {
+                    "x": 3,
+                    "y": 2
+                }
+            }
+        },
+        "panels": [
+            {
+                "height": "45px",
+                "top": "calc(100% - 45px)",
+                "width": "100%",
+                "left": "0",
+                "items": [
+                    {
+                        "type": "SearchMenuWidget",
+                        "config":{
+                            "width":"660px",
+                            "height":"500px"
+                        }
+                    },
+                    {
+                        "type":"AppsWidget",
+                        "config":{
+                            "apps":["/usr/share/applications/konsole.desktop", "/usr/share/applications/dolphin.desktop"]
+                        }
+                    },
+                    {
+                        "type": "ClockWidget",
+                        "styles": {
+                            "float": "right"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "apps": {
+        "iconSize": 1,
+        "fontSize": "0.8em",
+        "fontColor": "white"
+    },
+    "font": "/usr/share/fonts/NotoSans-Regular.ttf"
+}
