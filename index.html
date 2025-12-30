@@ -1,5 +1,557 @@
-<div>
-    <p>Directory Content</p>
-    <a href="/webKDE/index.html">WebKDE</a>
-    <a href="https://baroxyton.github.io/linuxSimulator/index.html">JS Bash</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Crossing Character Elimination Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #89CFF0 0%, #98FB98 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d5a3d;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            height: 20px;
+            border-radius: 15px;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #2d5a3d;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto 15px;
+            border-radius: 10px;
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #2d5a3d;
+            margin-bottom: 15px;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card-info p {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .card-info p span:first-child {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .card-info a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .card-info a:hover {
+            text-decoration: underline;
+        }
+
+        .undo-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .undo-btn:hover {
+            background: #f57c00;
+        }
+
+        .undo-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .reset-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #d32f2f;
+        }
+
+        .winner-container {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .winner-container h2 {
+            color: #4CAF50;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .winner-container img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .winner-info {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .winner-info p {
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .final-stats {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 10px;
+        }
+
+        .final-stats h3 {
+            color: #2d5a3d;
+            margin-bottom: 15px;
+        }
+
+        .final-stats p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 800px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 Animal Crossing Character Quiz 🌿</h1>
+        
+        <div id="quiz-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">Round: <span id="round-num">1</span></div>
+                <div class="stat">Remaining: <span id="remaining">0</span></div>
+                <div class="stat">Matchup: <span id="matchup">0/0</span></div>
+                <div class="stat">Total Choices: <span id="total-choices">0</span></div>
+            </div>
+
+            <p style="text-align: center; margin-bottom: 20px; color: #2d5a3d; font-size: 1.2em;">
+                Click on your favorite character!
+            </p>
+
+            <div class="cards-container" id="cards-container">
+                <!-- Cards will be inserted here -->
+            </div>
+
+            <button class="undo-btn" id="undo-btn" disabled>↩️ Undo Last Choice</button>
+            <button class="reset-btn" id="reset-btn">🔄 Start Over</button>
+        </div>
+
+        <div id="winner-section" class="hidden">
+            <!-- Winner will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let state = {
+            allCharacters: [],
+            currentRound: [],
+            nextRound: [],
+            currentMatchIndex: 0,
+            roundNumber: 1,
+            totalChoices: 0,
+            history: [],
+            winner: null,
+            choiceStats: {} // Track how many times each character was chosen
+        };
+
+        const STORAGE_KEY = 'acQuizState';
+
+        // Load characters and initialize
+        async function init() {
+            try {
+                const response = await fetch('bruh.json');
+                state.allCharacters = await response.json();
+                
+                // Try to load saved state
+                const savedState = localStorage.getItem(STORAGE_KEY);
+                if (savedState) {
+                    const parsed = JSON.parse(savedState);
+                    state = { ...state, ...parsed };
+                    
+                    if (state.winner) {
+                        showWinner();
+                    } else {
+                        updateUI();
+                    }
+                } else {
+                    startNewQuiz();
+                }
+            } catch (error) {
+                console.error('Error loading characters:', error);
+            }
+        }
+
+        function saveState() {
+            const toSave = {
+                currentRound: state.currentRound,
+                nextRound: state.nextRound,
+                currentMatchIndex: state.currentMatchIndex,
+                roundNumber: state.roundNumber,
+                totalChoices: state.totalChoices,
+                history: state.history,
+                winner: state.winner,
+                choiceStats: state.choiceStats
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+        }
+
+        function startNewQuiz() {
+            // Shuffle all characters
+            state.currentRound = [...state.allCharacters].sort(() => Math.random() - 0.5);
+            state.nextRound = [];
+            state.currentMatchIndex = 0;
+            state.roundNumber = 1;
+            state.totalChoices = 0;
+            state.history = [];
+            state.winner = null;
+            state.choiceStats = {};
+            
+            saveState();
+            document.getElementById('winner-section').classList.add('hidden');
+            document.getElementById('quiz-section').classList.remove('hidden');
+            updateUI();
+        }
+
+        function cleanImageUrl(url) {
+            // Remove everything after .png (including /revision/... and ?cb=...)
+            const pngIndex = url.indexOf('.png');
+            if (pngIndex !== -1) {
+                return url.substring(0, pngIndex + 4);
+            }
+            return url;
+        }
+
+        function getWikiUrl(name) {
+            // Handle special characters and spaces
+            const encodedName = encodeURIComponent(name.replace(/\s+/g, '_'));
+            return `https://animalcrossing.fandom.com/wiki/${encodedName}`;
+        }
+
+        function createCard(character, index) {
+            const [name, imageUrl, personality, species, birthday, catchphrase, hobby] = character;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => makeChoice(index);
+            
+            card.innerHTML = `
+                <img src="${cleanImageUrl(imageUrl)}" alt="${name}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
+                <h2>${name}</h2>
+                <div class="card-info">
+                    <p><span>Personality:</span> <span>${personality}</span></p>
+                    <p><span>Species:</span> <span>${species}</span></p>
+                    <p><span>Hobby:</span> <span>${hobby}</span></p>
+                    <a href="${getWikiUrl(name)}" target="_blank" onclick="event.stopPropagation()">📖 View Wiki Page</a>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function updateUI() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = '';
+
+            // Get current matchup
+            const idx = state.currentMatchIndex * 2;
+            const char1 = state.currentRound[idx];
+            const char2 = state.currentRound[idx + 1];
+
+            if (char1) {
+                container.appendChild(createCard(char1, 0));
+            }
+            if (char2) {
+                container.appendChild(createCard(char2, 1));
+            } else if (char1) {
+                // Odd number - auto-advance this character
+                state.nextRound.push(char1);
+                state.currentMatchIndex++;
+                checkRoundEnd();
+                return;
+            }
+
+            // Update stats
+            const totalMatches = Math.ceil(state.currentRound.length / 2);
+            document.getElementById('round-num').textContent = state.roundNumber;
+            document.getElementById('remaining').textContent = state.currentRound.length;
+            document.getElementById('matchup').textContent = `${state.currentMatchIndex + 1}/${totalMatches}`;
+            document.getElementById('total-choices').textContent = state.totalChoices;
+
+            // Update progress bar
+            const totalChars = state.allCharacters.length;
+            const eliminated = totalChars - state.currentRound.length;
+            const progress = (eliminated / (totalChars - 1)) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+
+            // Update undo button
+            document.getElementById('undo-btn').disabled = state.history.length === 0;
+        }
+
+        function makeChoice(choiceIndex) {
+            const idx = state.currentMatchIndex * 2;
+            const char1 = state.currentRound[idx];
+            const char2 = state.currentRound[idx + 1];
+            
+            const chosen = choiceIndex === 0 ? char1 : char2;
+            const eliminated = choiceIndex === 0 ? char2 : char1;
+
+            // Save to history for undo
+            state.history.push({
+                currentRound: [...state.currentRound],
+                nextRound: [...state.nextRound],
+                currentMatchIndex: state.currentMatchIndex,
+                roundNumber: state.roundNumber,
+                totalChoices: state.totalChoices,
+                choiceStats: { ...state.choiceStats }
+            });
+
+            // Track choice stats
+            const chosenName = chosen[0];
+            state.choiceStats[chosenName] = (state.choiceStats[chosenName] || 0) + 1;
+
+            state.nextRound.push(chosen);
+            state.currentMatchIndex++;
+            state.totalChoices++;
+
+            checkRoundEnd();
+            saveState();
+        }
+
+        function checkRoundEnd() {
+            if (state.currentMatchIndex * 2 >= state.currentRound.length) {
+                // Round is complete
+                if (state.nextRound.length === 1) {
+                    // We have a winner!
+                    state.winner = state.nextRound[0];
+                    saveState();
+                    showWinner();
+                } else {
+                    // Start next round
+                    state.currentRound = state.nextRound;
+                    state.nextRound = [];
+                    state.currentMatchIndex = 0;
+                    state.roundNumber++;
+                    updateUI();
+                }
+            } else {
+                updateUI();
+            }
+        }
+
+        function showWinner() {
+            document.getElementById('quiz-section').classList.add('hidden');
+            document.getElementById('winner-section').classList.remove('hidden');
+
+            const [name, imageUrl, personality, species, birthday, catchphrase, hobby] = state.winner;
+
+            // Calculate some stats
+            const timesChosen = state.choiceStats[name] || 0;
+            const roundsToWin = state.roundNumber;
+
+            // Find most chosen characters
+            const sortedByChoices = Object.entries(state.choiceStats)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            document.getElementById('winner-section').innerHTML = `
+                <div class="winner-container">
+                    <h2>🎉 Your Favorite Character! 🎉</h2>
+                    <img src="${cleanImageUrl(imageUrl)}" alt="${name}">
+                    <h2 style="color: #2d5a3d; font-size: 2.5em;">${name}</h2>
+                    
+                    <div class="winner-info">
+                        <p><strong>Personality:</strong> ${personality}</p>
+                        <p><strong>Species:</strong> ${species}</p>
+                        <p><strong>Birthday:</strong> ${birthday}</p>
+                        <p><strong>Catchphrase:</strong> ${catchphrase}</p>
+                        <p><strong>Hobby:</strong> ${hobby}</p>
+                        <p style="text-align: center;">
+                            <a href="${getWikiUrl(name)}" target="_blank" style="color: #4CAF50; font-size: 1.2em;">
+                                📖 Learn more on the Wiki
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="final-stats">
+                        <h3>📊 Quiz Statistics</h3>
+                        <p><strong>Total Characters:</strong> ${state.allCharacters.length}</p>
+                        <p><strong>Total Choices Made:</strong> ${state.totalChoices}</p>
+                        <p><strong>Rounds to Victory:</strong> ${roundsToWin}</p>
+                        <p><strong>Times ${name} was Chosen:</strong> ${timesChosen}</p>
+                        
+                        <h3 style="margin-top: 20px;">🏆 Most Chosen Characters</h3>
+                        ${sortedByChoices.map((entry, i) => 
+                            `<p>${i + 1}. ${entry[0]} - ${entry[1]} time${entry[1] > 1 ? 's' : ''}</p>`
+                        ).join('')}
+                    </div>
+
+                    <button class="reset-btn" style="margin-top: 20px; font-size: 16px; padding: 15px 30px;" onclick="startNewQuiz()">
+                        🔄 Play Again
+                    </button>
+                </div>
+            `;
+        }
+
+        function undo() {
+            if (state.history.length === 0) return;
+
+            const previous = state.history.pop();
+            state.currentRound = previous.currentRound;
+            state.nextRound = previous.nextRound;
+            state.currentMatchIndex = previous.currentMatchIndex;
+            state.roundNumber = previous.roundNumber;
+            state.totalChoices = previous.totalChoices;
+            state.choiceStats = previous.choiceStats;
+            state.winner = null;
+
+            document.getElementById('winner-section').classList.add('hidden');
+            document.getElementById('quiz-section').classList.remove('hidden');
+
+            saveState();
+            updateUI();
+        }
+
+        // Event listeners
+        document.getElementById('undo-btn').addEventListener('click', undo);
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to start over? All progress will be lost.')) {
+                startNewQuiz();
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
